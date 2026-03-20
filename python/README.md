@@ -7,12 +7,14 @@ cd photo-dna/python
 
 # 2. Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
-# venv\Scripts\activate   # Windows
+source venv/bin/activate
 
 # 3. Install maturin
 pip install maturin
 
 # 4. Install from source
 maturin develop -r
+
+# 5. Explore APIs
+python -c "from photo_dna_rs import Hash; help(Hash)"
 ```
