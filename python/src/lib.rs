@@ -94,19 +94,27 @@ use std::path::PathBuf;
 
 use pyo3::{exceptions::PyValueError, prelude::*};
 
+/// Python class for PhotoDNA hash operations.
+///
+/// This struct is designed for Python usage and should be documented
+/// through the Python docstrings, not Rust documentation.
+#[doc(hidden)]
 #[pyclass]
 pub struct Hash(photo_dna::Hash);
 
+#[doc(hidden)]
 impl From<photo_dna::Hash> for Hash {
     fn from(value: photo_dna::Hash) -> Self {
         Self(value)
     }
 }
 
+#[doc(hidden)]
 fn to_pyvalue_err(e: photo_dna::Error) -> PyErr {
     PyValueError::new_err(e.to_string())
 }
 
+#[doc(hidden)]
 #[pymethods]
 impl Hash {
     /// Create a PhotoDNA hash from RGB pixel data.
@@ -298,7 +306,11 @@ impl Hash {
     }
 }
 
-/// A Python module implemented in Rust.
+/// Python module for PhotoDNA image hashing.
+///
+/// This module is designed for Python usage and should be documented
+/// through the Python docstrings, not Rust documentation.
+#[doc(hidden)]
 #[pymodule]
 mod photo_dna_rs {
     #[pymodule_export]
