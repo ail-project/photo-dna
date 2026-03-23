@@ -2,7 +2,7 @@
 name = "photo-dna"
 version = "0.1.0"
 edition.workspace = true
-author.workspace = true
+authors.workspace = true
 license.workspace = true
 description = "Pure Rust implementation of PhotoDNA perceptual hashing for image similarity detection"
 keywords = ["image", "hashing", "perceptual", "similarity", "photodna"]
