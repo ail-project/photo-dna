@@ -11,7 +11,6 @@ from random import randint
 import pytest
 from PIL import Image
 
-import photo_dna_rs
 from photo_dna_rs import Hash
 
 # Test image paths (relative to the main project root)
@@ -24,7 +23,7 @@ RANDOM_IMAGE = TEST_IMAGES_DIR / "random.png"
 def test_from_image_path():
     """Test creating hash from image file path."""
     # Test with existing image
-    hash1 = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    hash1 = Hash.from_image_path(str(IMAGE_1))
     assert hash1 is not None
 
     # Test that hash has correct byte length
@@ -32,7 +31,7 @@ def test_from_image_path():
     assert len(bytes_repr) == 144
 
     # Test with different image
-    hash2 = photo_dna_rs.Hash.from_image_path(str(IMAGE_2))
+    hash2 = Hash.from_image_path(str(IMAGE_2))
     assert hash2 is not None
 
     # Hashes should be different
@@ -42,7 +41,7 @@ def test_from_image_path():
 def test_from_image_path_invalid():
     """Test error handling for invalid image paths."""
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_image_path("nonexistent_image.jpg")
+        Hash.from_image_path("nonexistent_image.jpg")
 
 
 def test_from_rgb_pixels():
@@ -54,7 +53,7 @@ def test_from_rgb_pixels():
         for _ in range(width * height)
     ]
 
-    hash = photo_dna_rs.Hash.from_rgb_pixels(width, height, pixels)
+    hash = Hash.from_rgb_pixels(width, height, pixels)
     assert hash is not None
 
     # Test byte representation
@@ -66,7 +65,7 @@ def test_from_rgb_pixels():
         (randint(0, 255), randint(0, 255), randint(0, 255))
         for _ in range(width * height)
     ]
-    hash2 = photo_dna_rs.Hash.from_rgb_pixels(width, height, pixels2)
+    hash2 = Hash.from_rgb_pixels(width, height, pixels2)
 
     # Hashes should be different
     assert hash.to_hex_str() != hash2.to_hex_str()
@@ -76,23 +75,23 @@ def test_from_rgb_pixels_invalid():
     """Test error handling for invalid pixel data."""
     # Test with zero width/height
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_rgb_pixels(0, 1, [(255, 0, 0)])
+        Hash.from_rgb_pixels(0, 1, [(255, 0, 0)])
 
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_rgb_pixels(1, 0, [(255, 0, 0)])
+        Hash.from_rgb_pixels(1, 0, [(255, 0, 0)])
 
 
 def test_from_hex_str():
     """Test creating hash from hexadecimal string."""
     # Create a hash from an image first
-    original_hash = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    original_hash = Hash.from_image_path(str(IMAGE_1))
     hex_str = original_hash.to_hex_str()
 
     # Verify hex string length
     assert len(hex_str) == 288  # 144 bytes * 2 characters per byte
 
     # Create hash from hex string
-    hash_from_hex = photo_dna_rs.Hash.from_hex_str(hex_str)
+    hash_from_hex = Hash.from_hex_str(hex_str)
 
     # Should be identical
     assert hash_from_hex.to_hex_str() == original_hash.to_hex_str()
@@ -103,24 +102,24 @@ def test_from_hex_str_invalid():
     """Test error handling for invalid hex strings."""
     # Test with wrong length
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_hex_str("deadbeef")  # Too short
+        Hash.from_hex_str("deadbeef")  # Too short
 
     # Test with invalid characters
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_hex_str("g" * 288)  # Invalid hex characters
+        Hash.from_hex_str("g" * 288)  # Invalid hex characters
 
 
 def test_from_bytes():
     """Test creating hash from bytes."""
     # Create a hash from an image first
-    original_hash = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    original_hash = Hash.from_image_path(str(IMAGE_1))
     bytes_data = original_hash.as_bytes()
 
     # Verify byte length
     assert len(bytes_data) == 144
 
     # Create hash from bytes
-    hash_from_bytes = photo_dna_rs.Hash.from_bytes(bytes_data)
+    hash_from_bytes = Hash.from_bytes(bytes_data)
 
     # Should be identical
     assert hash_from_bytes.to_hex_str() == original_hash.to_hex_str()
@@ -131,15 +130,15 @@ def test_from_bytes_invalid():
     """Test error handling for invalid byte data."""
     # Test with wrong length
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_bytes(bytes(100))  # Too short
+        Hash.from_bytes(bytes(100))  # Too short
 
     with pytest.raises(ValueError):
-        photo_dna_rs.Hash.from_bytes(bytes(200))  # Too long
+        Hash.from_bytes(bytes(200))  # Too long
 
 
 def test_as_bytes():
     """Test getting raw bytes from hash."""
-    hash = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    hash = Hash.from_image_path(str(IMAGE_1))
     bytes_repr = hash.as_bytes()
 
     assert isinstance(bytes_repr, bytes)
@@ -148,7 +147,7 @@ def test_as_bytes():
 
 def test_to_hex_str():
     """Test converting hash to hexadecimal string."""
-    hash = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    hash = Hash.from_image_path(str(IMAGE_1))
     hex_str = hash.to_hex_str()
 
     assert isinstance(hex_str, str)
@@ -160,9 +159,9 @@ def test_to_hex_str():
 
 def test_distance_euclidian():
     """Test Euclidean distance calculation."""
-    hash1 = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
-    hash2 = photo_dna_rs.Hash.from_image_path(str(IMAGE_2))
-    hash3 = photo_dna_rs.Hash.from_image_path(str(RANDOM_IMAGE))
+    hash1 = Hash.from_image_path(str(IMAGE_1))
+    hash2 = Hash.from_image_path(str(IMAGE_2))
+    hash3 = Hash.from_image_path(str(RANDOM_IMAGE))
 
     # Distance should be non-negative
     distance1 = hash1.distance_euclidian(hash2)
@@ -179,8 +178,8 @@ def test_distance_euclidian():
 
 def test_similarity_euclidian():
     """Test Euclidean similarity calculation."""
-    hash1 = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
-    hash2 = photo_dna_rs.Hash.from_image_path(str(IMAGE_2))
+    hash1 = Hash.from_image_path(str(IMAGE_1))
+    hash2 = Hash.from_image_path(str(IMAGE_2))
 
     # Similarity should be between 0 and 1
     similarity = hash1.similarity_euclidian(hash2)
@@ -193,8 +192,8 @@ def test_similarity_euclidian():
 
 def test_distance_log2p():
     """Test log2p distance calculation."""
-    hash1 = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
-    hash2 = photo_dna_rs.Hash.from_image_path(str(IMAGE_2))
+    hash1 = Hash.from_image_path(str(IMAGE_1))
+    hash2 = Hash.from_image_path(str(IMAGE_2))
 
     # Distance should be non-negative
     distance = hash1.distance_log2p(hash2)
@@ -207,8 +206,8 @@ def test_distance_log2p():
 
 def test_similarity_log2p():
     """Test log2p similarity calculation."""
-    hash1 = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
-    hash2 = photo_dna_rs.Hash.from_image_path(str(IMAGE_2))
+    hash1 = Hash.from_image_path(str(IMAGE_1))
+    hash2 = Hash.from_image_path(str(IMAGE_2))
 
     # Similarity should be between 0 and 1
     similarity = hash1.similarity_log2p(hash2)
@@ -222,15 +221,15 @@ def test_similarity_log2p():
 def test_consistency_across_methods():
     """Test that different creation methods produce consistent results."""
     # Create hash from image
-    hash_from_image = photo_dna_rs.Hash.from_image_path(str(IMAGE_1))
+    hash_from_image = Hash.from_image_path(str(IMAGE_1))
 
     # Create hash from hex string of the same image
     hex_str = hash_from_image.to_hex_str()
-    hash_from_hex = photo_dna_rs.Hash.from_hex_str(hex_str)
+    hash_from_hex = Hash.from_hex_str(hex_str)
 
     # Create hash from bytes of the same image
     bytes_data = hash_from_image.as_bytes()
-    hash_from_bytes = photo_dna_rs.Hash.from_bytes(bytes_data)
+    hash_from_bytes = Hash.from_bytes(bytes_data)
 
     # All should be identical
     assert hash_from_image.to_hex_str() == hash_from_hex.to_hex_str()
@@ -251,7 +250,7 @@ def test_with_pil_image():
 
     try:
         # Create hash from the saved image
-        hash = photo_dna_rs.Hash.from_image_path(temp_path)
+        hash = Hash.from_image_path(temp_path)
         assert hash is not None
         assert len(hash.as_bytes()) == 144
     finally:
@@ -279,7 +278,7 @@ def test_different_image_sizes():
     for width, height in test_cases:
         # Create a uniform color image
         pixels = [(128, 128, 128) for _ in range(width * height)]  # Gray image
-        hash = photo_dna_rs.Hash.from_rgb_pixels(width, height, pixels)
+        hash = Hash.from_rgb_pixels(width, height, pixels)
 
         assert hash is not None
         assert len(hash.as_bytes()) == 144
