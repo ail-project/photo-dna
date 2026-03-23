@@ -607,7 +607,7 @@ impl Hash {
     /// # Returns
     ///
     /// * `Ok(Hash)` - If the pixel data can be converted to a valid image
-    /// * `Err(Error::InvalidLength)` - If the numbers pixels is different from `width * height`
+    /// * `Err(Error::InvalidLength)` - If the numbers of pixels is different from `width * height`
     ///
     /// # Examples
     ///
@@ -962,8 +962,6 @@ impl Hash {
 
     /// Converts the hash to a Base64 string representation.
     ///
-    /// This method is only available when the "base64" feature is enabled.
-    ///
     /// # Returns
     ///
     /// A Base64-encoded string representation of the hash.
@@ -984,8 +982,6 @@ impl Hash {
     }
 
     /// Creates a Hash from a Base64 string representation.
-    ///
-    /// This method is only available when the "base64" feature is enabled.
     ///
     /// # Arguments
     ///
