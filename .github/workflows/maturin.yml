@@ -221,8 +221,8 @@ jobs:
         with:
           subject-path: "wheels-*/*"
       - name: Install uv
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/photo-dna-rs-v') }}
         uses: astral-sh/setup-uv@v7
       - name: Publish to PyPI
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        if: ${{ startsWith(github.ref, 'refs/tags/photo-dna-rs-v') }}
         run: uv publish 'wheels-*/*'
