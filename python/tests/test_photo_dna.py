@@ -9,6 +9,7 @@ from pathlib import Path
 from random import randint
 
 import pytest
+from oaphotodna import compute_hash
 from PIL import Image
 
 from photo_dna_rs import Hash
@@ -18,6 +19,16 @@ TEST_IMAGES_DIR = Path(__file__).parent.parent.parent / "photo-dna" / "tests"
 IMAGE_1 = TEST_IMAGES_DIR / "image_1.jpg"
 IMAGE_2 = TEST_IMAGES_DIR / "image_2.jpg"
 RANDOM_IMAGE = TEST_IMAGES_DIR / "random.png"
+
+
+def test_implementation_validity():
+    """Test that what is implemented here matches with what has been implemented 
+    by ArcaneNibble: https://github.com/ArcaneNibble/open-alleged-photodna"""
+    for im_path in [IMAGE_1, IMAGE_2, RANDOM_IMAGE]:
+        h = Hash.from_image_path(im_path)
+        oa_h = compute_hash(im_path)
+
+        assert list(h.as_bytes()) == oa_h
 
 
 def test_from_image_path():
