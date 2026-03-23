@@ -130,8 +130,8 @@ impl Hash {
     ///     >>> pixels = [[255, 0, 0]] * (width * height)
     ///     >>> hash = photo_dna_rs.Hash.from_rgb_pixels(width, height, pixels)
     #[staticmethod]
-    pub fn from_rgb_pixels(width: u32, heigh: u32, b: Vec<[u8; 3]>) -> PyResult<Self> {
-        photo_dna::Hash::from_rgb_pixels(width, heigh, b).map_err(to_pyvalue_err).map(Hash::from)
+    pub fn from_rgb_pixels(width: u32, height: u32, b: Vec<[u8; 3]>) -> PyResult<Self> {
+        photo_dna::Hash::from_rgb_pixels(width, height, b).map_err(to_pyvalue_err).map(Hash::from)
     }
 
     /// Create a PhotoDNA hash from an image file.
@@ -292,7 +292,7 @@ impl Hash {
     pub fn similarity_log2p(&self, other: &Self) -> f64 {
         self.0.similarity_log2p(&other.0)
     }
-    
+
     pub fn __eq__(&self, other: &Self) -> bool {
         self.0 == other.0
     }
