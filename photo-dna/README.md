@@ -1,5 +1,6 @@
-![Crates.io Version](https://img.shields.io/crates/v/photo-dna?style=for-the-badge)
-![docs.rs](https://img.shields.io/docsrs/photo-dna?style=for-the-badge)
+[![Crates.io Version](https://img.shields.io/crates/v/photo-dna?style=for-the-badge)](https://crates.io/crates/photo-dna)
+[![docs.rs](https://img.shields.io/docsrs/photo-dna?style=for-the-badge)](https://docs.rs/photo-dna/latest/photo_dna/)
+![GitHub License](https://img.shields.io/github/license/ail-project/photo-dna?style=for-the-badge)
 
 <!-- cargo-rdme start -->
 
