@@ -7,3 +7,4 @@ edition = "2024"
 authors = ["Quentin JÉRÔME <quentin.jerome@circl.lu>"]
 license = "GPL-3.0"
 repository = "https://github.com/ail-project/photo-dna"
+rust-version = "1.88.0"

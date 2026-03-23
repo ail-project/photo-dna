@@ -4,6 +4,7 @@ version = "0.1.0"
 edition.workspace = true
 author.workspace = true
 license.workspace = true
+rust-version.workspace = true
 # Python package, doesn't need to be published on crates.io
 publish = false
 
