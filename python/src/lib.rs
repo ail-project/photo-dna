@@ -202,6 +202,10 @@ impl Hash {
     pub fn similarity_log2p(&self, other: &Self) -> f64 {
         self.0.similarity_log2p(&other.0)
     }
+    
+    pub fn __eq__(&self, other: &Self) -> bool {
+        self.0 == other.0
+    }
 }
 
 /// A Python module implemented in Rust.
