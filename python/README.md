@@ -1,3 +1,6 @@
+![PyPI - Version](https://img.shields.io/pypi/v/photo-dna-rs?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/ail-project/photo-dna?style=for-the-badge)
+
 <!-- cargo-rdme start -->
 
 # photo-dna-rs

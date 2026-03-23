@@ -1,3 +1,6 @@
+![Crates.io Version](https://img.shields.io/crates/v/photo-dna?style=for-the-badge)
+![docs.rs](https://img.shields.io/docsrs/photo-dna?style=for-the-badge)
+
 <!-- cargo-rdme start -->
 
 PhotoDNA - A Rust implementation of the PhotoDNA perceptual hashing algorithm
