@@ -114,4 +114,4 @@ This project is licensed under **GPLv3**. See the [LICENSE](LICENSE) file for de
 
 ---
 
-*Built with ❤️ by the [AIL Project](https://github.com/ail-project) for robust image analysis and content moderation.*
+*Built with ❤️ by the [AIL Project](https://github.com/ail-project) for robust image analysis.*
