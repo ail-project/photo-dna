@@ -11,3 +11,17 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dynamic = ["version"]
+authors = [{ name = "Quentin JEROME", email = "quentin.jerome@circl.lu" }]
+maintainers = [{ name = "Quentin JEROME", email = "quentin.jerome@circl.lu" }]
+description = "Python bindings to pure Rust implementation of PhotoDNA perceptual hashing for image similarity detection"
+readme = "README.md"
+license = "GPL-3.0"
+
+[project.urls]
+Repository = "https://github.com/ail-project/photo-dna"
+
+[dependency-groups]
+dev = [
+    "pillow>=10.4.0",
+    "pytest>=8.3.5",
+]
